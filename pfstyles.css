@@ -1,11 +1,13 @@
-/* Estilos generales */
+/* ==========================================================================
+   1. Variables de entorno y de inicio
+   ========================================================================== */
 :root {
     --primary-color: #2563eb;
     --primary-dark: #1d4ed8;
     --secondary-color: #64748b;
     --accent-color: #f59e0b;
     --text-color: #334155;
-    --text-light:#64748b;
+    --text-light: #64748b;
     --bg-color: #ffffff;
     --bg-light: #f8fafc;
     --bg-dark: #0f172a;
@@ -23,66 +25,48 @@
 
 html {
     scroll-behavior: smooth;
-    /*scroll-snap-type: y mandatory;*/
 }
 
 body {
     font-family: 'Inter', sans-serif;
     color: var(--text-color);
+    background-color: var(--bg-color);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ==========================================================================
+   2. Diseño estructural y fuentes
+   ========================================================================== */
 .container {
     width: 90%;
     max-width: 75rem;
     margin: 0 auto;
 }
 
-/*Scroll Snap*/
-.inicio,
-.sobre-mi,
-.proyectos,
-.contacto {
+.inicio, .sobre-mi, .proyectos, .contacto {
     scroll-snap-align: center;
     scroll-snap-stop: always;
 }
 
-/* Clase asociada al JS del loader*/
-.hidden{
+.hidden {
     display: none;
 }
 
-/*Tipograía*/
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 1rem;
 }
 
-h1 {
-    font-size: 3.5rem;
-}
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.5rem; }
+p { margin-bottom: 1.5rem; }
 
-h2 {
-    font-size: 2.5rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-p {
-    margin-bottom: 1.5rem;
-}
-
-.highlight {
-    color: var(--primary-color)
-}
-
-.accent {
-    color: var(--accent-color)
-}
+.highlight { color: var(--primary-color); }
+.accent { color: var(--accent-color); }
 
 .section-title {
     text-align: center;
@@ -102,7 +86,10 @@ p {
     border-radius: 2px;
 }
 
-/*Botones*/
+/* ==========================================================================
+   3. Componentes globales (Botones, Nav, Loades)
+   ========================================================================== */
+/* Botones */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -150,6 +137,7 @@ nav {
     z-index: 1000;
     padding: 1rem 0;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-content {
@@ -161,7 +149,7 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color:var(--primary-color)
+    color: var(--primary-color);
 }
 
 .nav-links {
@@ -183,17 +171,17 @@ nav {
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 100%;
+    width: 0;
     height: 2px;
     background: var(--primary-color);
     transition: var(--transition);
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
     color: var(--primary-color);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after, .nav-link.active::after {
     width: 100%;
 }
 
@@ -211,6 +199,51 @@ nav {
     transition: var(--transition);
 }
 
+/* Botón de tema */
+.dtheme-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dtheme-btn:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+/* ==========================================================================
+   4. Secciones concretas
+   ========================================================================== */
 /* Sección Inicio */
 .inicio {
     min-height: 100vh;
@@ -297,18 +330,6 @@ nav {
     animation: bounce 2s infinite;
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0) rotate(45deg);
-    }
-    40% {
-        transform: translateY(-10px) rotate(45deg);
-    }
-    60% {
-        transform: translateY(-5px) rotate(45deg);
-    }
-}
-
 /* Sección Sobre Mí */
 .sobre-mi {
     padding: 100px 0;
@@ -324,7 +345,7 @@ nav {
     margin-top: 2rem;
 }
 
-.skills-list{
+.skills-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -338,6 +359,7 @@ nav {
     font-size: 0.9rem;
     font-weight: 500;
     transition: var(--transition);
+    color: var(--text-color);
 }
 
 .skill-tag:hover {
@@ -371,7 +393,7 @@ nav {
     box-shadow: var(--shadow-lg);
 }
 
-.proyecto-img { /* Propiedades de las fotos dentro de la clase ".proyecto"*/
+.proyecto-img {
    position: relative;
    overflow: hidden;
    height: 250px;
@@ -387,6 +409,7 @@ nav {
 .proyecto:hover .proyecto-img img {
     transform: scale(1.1);
 }
+
 .proyecto-overlay {
     position: absolute;
     top: 0;
@@ -445,6 +468,7 @@ nav {
     border-radius: 4px;
     font-size: 0.8rem;
     color: var(--text-light);
+    transition: var(--transition);
 }
 
 .proyecto-tech span:hover {
@@ -453,7 +477,7 @@ nav {
     transform: translateY(-2px);
 }
 
-/* Sección Contacto */
+/* Sección Contacto y Footer */
 .contacto {
     padding: 100px 0;
     background: var(--bg-color);
@@ -465,13 +489,8 @@ nav {
     gap: 3rem;
 }
 
-.contact-info h3 {
-    margin-bottom: 1rem;
-}
-
-.contact-details {
-    margin: 2rem 0;
-}
+.contact-info h3 { margin-bottom: 1rem; }
+.contact-details { margin: 2rem 0; }
 
 .contact-item {
     display: flex;
@@ -508,9 +527,7 @@ nav {
     transform: translateY(-3px);
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
+.form-group { margin-bottom: 1.5rem; }
 
 .contacto input, .contacto textarea {
     width: 100%;
@@ -519,6 +536,8 @@ nav {
     border-radius: 6px;
     font-family: 'Inter', sans-serif;
     transition: var(--transition);
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .contacto input:focus, .contacto textarea:focus {
@@ -527,7 +546,6 @@ nav {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Pie de página */
 footer {
     background: var(--bg-dark);
     color: white;
@@ -555,135 +573,122 @@ footer {
     color: var(--accent-color);
 }
 
-/* Estilos para el loader */
-#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+/* ==========================================================================
+   5. Variantes y cambios de estados (Modo oscuro o animaciones)
+   ========================================================================== */
+/* Reglas Globales del Modo Oscuro */
+.dark-mode {
+    --text-color: #f1f5f9;
+    --text-light: #94a3b8;
+    --bg-color: #0f172a;
+    --bg-light: #1e293b;
+    --border-color: #334155;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
 }
 
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
+.dark-mode nav {
+    background: rgba(15, 23, 42, 0.95);
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+.dark-mode #loader {
+    background-color: #0f172a;
 }
 
-/* Usamos @Media Queries para hacer un diseño responsivo */
+.dark-mode .inicio {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
 
-/*Estilos para pantallas con menos de 1024px*/
+.dark-mode .proyecto {
+    background: var(--bg-light);
+}
 
+.dark-mode .skill-tag,
+.dark-mode .proyecto-tech span {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Sobrescritura del hover por especificidad */
+.dark-mode .skill-tag:hover,
+.dark-mode .proyecto-tech span:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Animaciones */
+.animate-in {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(45deg); }
+    40% { transform: translateY(-10px) rotate(45deg); }
+    60% { transform: translateY(-5px) rotate(45deg); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estados Menu Hamburguesa */
+.hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
+/* ==========================================================================
+   6. Media Queries (Diseño responsivo)
+   ========================================================================== */
 @media (max-width: 1024px) {
-    h1 {
-        font-size: 2.8rem;
-    }
-    
-    h2 {
-        font-size: 2.2rem;
-    }
-    
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-    }
-    
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
-
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .contact-content { grid-template-columns: 1fr; }
 }
 
-/* Estilos para pantallas con menos de 768px */
-
-@media (max-width: 768px){
+@media (max-width: 768px) {
     .nav-links {
         display: none;
     }
-
-    .hamburger {
-        display: flex;
+    
+    /* Aquí gestionamos el menú responsivo activo de forma limpia y unificada */
+    .nav-links.active {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg-color);
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .dark-mode .nav-links.active {
+        background: #1e293b;
     }
 
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .image-container {
-        width: 250px;
-        height: 250px;
-    }
-
-    .proyectos-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-links {
-        justify-content: center;
-    }
+    .hamburger { display: flex; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; }
+    .hero-title { font-size: 2.5rem; }
+    .image-container { width: 250px; height: 250px; }
+    .proyectos-grid { grid-template-columns: 1fr; }
+    .footer-links { justify-content: center; }
 }
 
-/* Estilos para pantallas con menos de 480px */
-
-@media (max-width: 480px){
-    .container {
-        width: 95%;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-buttons {
-         flex-direction: column;
-         align-items: center;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 250px;
-    }
-
-    .image-container {
-        width: 200px;
-        height: 200px;
-    }
-
-    .skills-list {
-        justify-content: center;
-    }
+@media (max-width: 480px) {
+    .container { width: 95%; }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 250px; }
+    .image-container { width: 200px; height: 200px; }
+    .skills-list { justify-content: center; }
 }
